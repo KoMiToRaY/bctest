@@ -1,0 +1,21 @@
+<h1>Liste des articles</h1>
+
+<%= form_tag(articles_path, method: :get) do |f| %>
+  Filtre :
+  <%= text_field_tag :filter, @filter %>
+  <%= submit_tag 'Rechercher' %>
+<% end %>
+
+<% @articles.each do |article| %>
+  <h3><%= article.title %></h3>
+  <p><%= simple_format(article.text) %></p>
+  <p>
+    <%= link_to 'Voir', article %>,
+    <%= link_to 'modifier', edit_article_path(article) %>,
+    <%= link_to 'effacer', article, method: :delete,
+          data: { confirm: "Êtes-vous sûr de vouloir effacer l'article '#{article.title}' ?" } %>
+    l'article
+  </p>
+<% end %>
+
+<p><%= link_to 'Nouvel article', new_article_path %></p>
